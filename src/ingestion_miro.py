@@ -4,18 +4,16 @@ import json
 
 
 
-# ================================================================
 # CONFIGURACIÓN 
-# ================================================================
+# 
  
-URL_TIENDA  = "https://exclusivasmiro.myshopify.com"      # URL base de la tienda
-PAIS        = "España"                                    # País de la tienda
-MONEDA      = "EUR"                                       # Moneda (ARS, USD, EUR, UYU)
-NOMBRE_CSV  = "miro_products.csv"                         # Nombre del archivo de salida
+URL_TIENDA  = "https://exclusivasmiro.myshopify.com"      
+PAIS        = "España"                                    
+MONEDA      = "EUR"                                      
+NOMBRE_CSV  = "miro_products.csv"                       
  
 
-# ----- 1. TRAER LOS DATOS -----
-
+#  1. TRAER LOS DATOS 
 
 todos_los_productos = []
 pagina = 1
@@ -28,7 +26,7 @@ while True:
     datos = respuesta.json()
     productos = datos["products"]
     
-    if not productos:  # Si la página está vacía, terminamos
+    if not productos: 
         print("No hay más productos.")
         break
     
@@ -38,11 +36,11 @@ while True:
 
 print(f"\nTotal de productos descargados: {len(todos_los_productos)}")
 
-# ----- 2. CONVERTIR A TABLA -----
+#  2. CONVERTIR A TABLA 
 filas = []
 
 for p in todos_los_productos:
-    # Tomamos la primera variante (casi siempre hay una sola)
+   
     variante = p["variants"][0] if p["variants"] else {}
     
     fila = {
@@ -51,17 +49,17 @@ for p in todos_los_productos:
         "id":               p.get("id"),
         "titulo":           p.get("title"),
         "bodega":           p.get("vendor"),
-        "tipo":             p.get("product_type"),          # puede estar vacío
-        "tags":             ", ".join(p.get("tags", [])),   # lista → texto
+        "tipo":             p.get("product_type"),          
+        "tags":             ", ".join(p.get("tags", [])),   
         "precio":           variante.get("price"),
-        "precio_tachado":   variante.get("compare_at_price"),  # None si no hay promo
+        "precio_tachado":   variante.get("compare_at_price"), 
         "stock":            variante.get("available"),
         "publicado":        p.get("published_at"),
-        "descripcion":      (p.get("body_html") or "")[:300],   # primeros 300 caracteres
+        "descripcion":      (p.get("body_html") or "")[:300],   
     }
     filas.append(fila)
 
-# ----- 3. GUARDAR COMO CSV -----
+#  3. GUARDAR COMO CSV 
 df = pd.DataFrame(filas)
 df.to_csv(NOMBRE_CSV, index=False, encoding="utf-8-sig")
 
