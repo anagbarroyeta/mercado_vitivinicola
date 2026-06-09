@@ -6,6 +6,7 @@ Analizar el posicionamiento competitivo de vinotecas digitales internacionales m
 
 ## Arquitectura
 
+
 Shopify APIs → Landing → Bronze → Silver → Gold
 
 ## Tecnologías
@@ -18,14 +19,21 @@ Shopify APIs → Landing → Bronze → Silver → Gold
 
 ## Capas
 
+### Landing
+
+Zona de aterrizaje donde se almacenan los archivos CSV generados a partir de las APIs de Shopify antes de ser procesados por el pipeline.
+
 ### Bronze
-Datos crudos provenientes de Shopify.
+
+Almacena los datos crudos provenientes de las distintas fuentes, preservando la información original para auditoría y trazabilidad.
 
 ### Silver
-Estandarización, calidad y deduplicación.
+
+Aplica procesos de limpieza, estandarización, deduplicación y reglas de calidad de datos.
 
 ### Gold
-Modelo dimensional orientado al análisis.
+
+Implementa el modelo dimensional orientado al análisis mediante tablas de hechos y dimensiones.
 
 ## Modelo dimensional
 
