@@ -55,6 +55,14 @@ Se detectaron productos con el mismo título dentro de una misma tienda pero con
 
 Se implementó un modelo dimensional orientado al análisis de catálogo y pricing competitivo mediante una tabla de hechos (`fact_catalogo`) y dimensiones de producto, tienda y varietal.
 
+### Granularidad de la Fact
+
+La granularidad definida para `fact_catalogo` corresponde a:
+
+Un producto determinado observado en una tienda determinada.
+
+Esta definición permite analizar disponibilidad, precios y posicionamiento competitivo entre diferentes vinotecas manteniendo el máximo nivel de detalle disponible en el origen.
+
 ### Relación Muchos a Muchos
 
 Un producto puede estar asociado a múltiples varietales y un varietal puede estar presente en múltiples productos. Para preservar esta relación se incorporó la tabla puente `dim_producto_varietal`.
