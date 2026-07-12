@@ -1,0 +1,1020 @@
+{
+  "datasets": [
+    {
+      "name": "1bba21e8",
+      "displayName": "Total Productos",
+      "queryLines": [
+        "SELECT COUNT(DISTINCT sk_producto) AS total_productos\r\n",
+        "FROM gold.fact_catalogo;\r\n"
+      ],
+      "catalog": "vitivinicola_catalog",
+      "schema": "default"
+    },
+    {
+      "name": "9ac0dace",
+      "displayName": "Total Bodegas",
+      "queryLines": [
+        "SELECT COUNT(DISTINCT bodega)\r\n",
+        "FROM gold.dim_productos;"
+      ],
+      "catalog": "vitivinicola_catalog",
+      "schema": "default"
+    },
+    {
+      "name": "0e40fce5",
+      "displayName": "Total Varietales",
+      "queryLines": [
+        "SELECT COUNT(*) AS total_varietales\r\n",
+        "FROM gold.dim_varietales;"
+      ],
+      "catalog": "vitivinicola_catalog",
+      "schema": "default"
+    },
+    {
+      "name": "03bf07ac",
+      "displayName": "Total Tiendas",
+      "queryLines": [
+        "SELECT COUNT(*) AS total_tiendas\r\n",
+        "FROM vitivinicola_catalog.gold.dim_tiendas;"
+      ]
+    },
+    {
+      "name": "d7660622",
+      "displayName": "vw_catalogo_varietales",
+      "config": {
+        "version": "1.1",
+        "source": "vitivinicola_catalog.gold.vw_catalogo_varietales",
+        "dimensions": [
+          {
+            "name": "tienda",
+            "expr": "source.tienda",
+            "displayName": "Tienda"
+          },
+          {
+            "name": "pais",
+            "expr": "source.pais",
+            "displayName": "Pais"
+          },
+          {
+            "name": "moneda",
+            "expr": "source.moneda",
+            "displayName": "Moneda"
+          },
+          {
+            "name": "titulo",
+            "expr": "source.titulo",
+            "displayName": "Titulo"
+          },
+          {
+            "name": "bodega",
+            "expr": "source.bodega",
+            "displayName": "Bodega"
+          },
+          {
+            "name": "categoria",
+            "expr": "source.categoria",
+            "displayName": "Categoria"
+          },
+          {
+            "name": "varietal",
+            "expr": "source.varietal",
+            "comment": "Inferido desde tags",
+            "displayName": "Varietal"
+          },
+          {
+            "name": "precio",
+            "expr": "source.precio",
+            "displayName": "Precio"
+          },
+          {
+            "name": "precio_tachado",
+            "expr": "source.precio_tachado",
+            "displayName": "Precio Tachado"
+          },
+          {
+            "name": "stock",
+            "expr": "source.stock",
+            "displayName": "Stock"
+          }
+        ],
+        "measures": [
+          {
+            "name": "count",
+            "expr": "COUNT(*)",
+            "comment": "Represents the total number of rows in the dataset. Use this measure to count all",
+            "displayName": "Count"
+          }
+        ]
+      }
+    }
+  ],
+  "pages": [
+    {
+      "name": "6a97b1e4",
+      "displayName": "Untitled page",
+      "layout": [
+        {
+          "widget": {
+            "name": "to",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "1bba21e8",
+                  "fields": [
+                    {
+                      "name": "sum(total_productos)",
+                      "expression": "SUM(`total_productos`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "showDescription": false,
+                "title": "Total Productos",
+                "headerAlignment": "center"
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(total_productos)"
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 1,
+            "width": 2,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "dd3d9a31",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "9ac0dace",
+                  "fields": [
+                    {
+                      "name": "sum(count(DISTINCT bodega))",
+                      "expression": "SUM(`count(DISTINCT bodega)`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "showDescription": false,
+                "title": "Total Bodegas",
+                "headerAlignment": "center"
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(count(DISTINCT bodega))"
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 1,
+            "width": 2,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "0623eafd",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "0e40fce5",
+                  "fields": [
+                    {
+                      "name": "sum(total_varietales)",
+                      "expression": "SUM(`total_varietales`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "showDescription": false,
+                "title": "Total Varietales",
+                "headerAlignment": "center"
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(total_varietales)"
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 8,
+            "y": 1,
+            "width": 2,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "5f2e056d",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "03bf07ac",
+                  "fields": [
+                    {
+                      "name": "sum(total_tiendas)",
+                      "expression": "SUM(`total_tiendas`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "showDescription": false,
+                "title": "Total Tiendas",
+                "headerAlignment": "center"
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(total_tiendas)"
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 10,
+            "y": 1,
+            "width": 2,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "55d205c4",
+            "multilineTextboxSpec": {
+              "lines": [
+                "<span style=\"text-align:center;display:block\"><span style=\"font-size:14px\">**Análisis Competitivo del Mercado Vitivinícola**</span><span style=\"font-size:12px\"> - </span><span style=\"font-size:12px\">Benchmark regional e internacional para estrategia de expansión digital</span></span>"
+              ],
+              "verticalAlign": "VERTICAL_ALIGN_TOP"
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 12,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "productos-por-pais",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "d7660622",
+                  "fields": [
+                    {
+                      "name": "pais",
+                      "expression": "`pais`"
+                    },
+                    {
+                      "name": "count(*)",
+                      "expression": "COUNT(`*`)"
+                    }
+                  ],
+                  "disaggregated": false,
+                  "orders": [
+                    {
+                      "direction": "DESC",
+                      "expression": "COUNT(`*`)"
+                    }
+                  ]
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "showTitle": true,
+                "title": "Productos por país",
+                "headerAlignment": "center"
+              },
+              "mark": {
+                "colors": [
+                  "#D223DC",
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 2
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 3
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 4
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 5
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 6
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 7
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 8
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 9
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 10
+                  }
+                ]
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "pais",
+                  "axis": {
+                    "hideTitle": true,
+                    "hideLabels": false
+                  },
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "measure-reversed",
+                      "measure": {
+                        "fieldName": "count(*)"
+                      }
+                    }
+                  }
+                },
+                "y": {
+                  "fieldName": "count(*)",
+                  "axis": {
+                    "hideLabels": true,
+                    "hideTitle": true,
+                    "hideGrid": true
+                  },
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 3,
+            "width": 4,
+            "height": 4
+          }
+        },
+        {
+          "widget": {
+            "name": "b766e01f",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "d7660622",
+                  "fields": [
+                    {
+                      "name": "varietal",
+                      "expression": "`varietal`"
+                    },
+                    {
+                      "name": "count(*)",
+                      "expression": "COUNT(`*`)"
+                    }
+                  ],
+                  "filters": [
+                    {
+                      "expression": "`varietal` NOT IN ('Otros') AND `varietal` IS NOT NULL"
+                    }
+                  ],
+                  "disaggregated": false,
+                  "orders": [
+                    {
+                      "direction": "DESC",
+                      "expression": "COUNT(`*`)"
+                    }
+                  ]
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "showTitle": true,
+                "title": "Top 10 varietales",
+                "headerAlignment": "center"
+              },
+              "mark": {
+                "colors": [
+                  "#D223DC",
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 2
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 3
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 4
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 5
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 6
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 7
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 8
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 9
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 10
+                  }
+                ]
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "varietal",
+                  "axis": {
+                    "hideTitle": true
+                  },
+                  "scale": {
+                    "type": "categorical",
+                    "categorySize": {
+                      "type": "number-of-categories",
+                      "number": 10
+                    },
+                    "sort": {
+                      "by": "measure-reversed",
+                      "measure": {
+                        "fieldName": "count(*)"
+                      }
+                    }
+                  }
+                },
+                "y": {
+                  "fieldName": "count(*)",
+                  "axis": {
+                    "hideTitle": true,
+                    "hideLabels": true,
+                    "hideGrid": true
+                  },
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 8,
+            "y": 3,
+            "width": 4,
+            "height": 8
+          }
+        },
+        {
+          "widget": {
+            "name": "distribucion-por-categoria",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "d7660622",
+                  "fields": [
+                    {
+                      "name": "count(*)",
+                      "expression": "COUNT(`*`)"
+                    },
+                    {
+                      "name": "categoria",
+                      "expression": "`categoria`"
+                    }
+                  ],
+                  "filters": [
+                    {
+                      "expression": "`categoria` IN ('Espumante', 'Vermut', 'Vino')"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "showTitle": true,
+                "title": "Distribución por categoría"
+              },
+              "widgetType": "pie",
+              "encodings": {
+                "angle": {
+                  "fieldName": "count(*)",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "axis": {
+                    "hideTitle": true
+                  }
+                },
+                "color": {
+                  "fieldName": "categoria",
+                  "legend": {
+                    "hideTitle": true,
+                    "hide": false,
+                    "position": "right"
+                  },
+                  "scale": {
+                    "type": "categorical",
+                    "mappings": [
+                      {
+                        "value": "Vino",
+                        "color": "#D223DC"
+                      },
+                      {
+                        "value": "Vermut",
+                        "color": "#E8E1E1"
+                      },
+                      {
+                        "value": "Espumante",
+                        "color": "#F7B2E6"
+                      }
+                    ],
+                    "sort": {
+                      "by": "angle-reversed"
+                    }
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 7,
+            "width": 4,
+            "height": 4
+          }
+        },
+        {
+          "widget": {
+            "name": "502b47cb",
+            "multilineTextboxSpec": {
+              "lines": [
+                "<span style=\"font-size: 12px;\">España presenta el catálogo más amplio y la mayor diversidad de bodegas, mientras que Argentina y Uruguay permiten analizar el mercado regional de referencia. La comparación de precios entre países no se incluye debido a la existencia de múltiples monedas; este análisis requeriría una normalización cambiaria para obtener resultados comparables.</span>"
+              ],
+              "verticalAlign": "VERTICAL_ALIGN_TOP"
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 11,
+            "width": 12,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "c823ec21",
+            "queries": [
+              {
+                "name": "dashboards/01f17a1e4c2b1167b969b2dc86951edc/datasets/01f17a2a1e971646bc6373a34980939a_pais",
+                "query": {
+                  "datasetName": "d7660622",
+                  "fields": [
+                    {
+                      "name": "pais",
+                      "expression": "`pais`"
+                    },
+                    {
+                      "name": "pais_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "headerAlignment": "center"
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "pais",
+                    "queryName": "dashboards/01f17a1e4c2b1167b969b2dc86951edc/datasets/01f17a2a1e971646bc6373a34980939a_pais"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 2,
+            "width": 4,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "6a0ec660",
+            "queries": [
+              {
+                "name": "dashboards/01f17a1e4c2b1167b969b2dc86951edc/datasets/01f17a2a1e971646bc6373a34980939a_tienda",
+                "query": {
+                  "datasetName": "d7660622",
+                  "fields": [
+                    {
+                      "name": "tienda",
+                      "expression": "`tienda`"
+                    },
+                    {
+                      "name": "tienda_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "showDescription": false,
+                "headerAlignment": "center"
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "tienda",
+                    "queryName": "dashboards/01f17a1e4c2b1167b969b2dc86951edc/datasets/01f17a2a1e971646bc6373a34980939a_tienda"
+                  }
+                ]
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "light": "#FFFFFF"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 1,
+            "width": 4,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "bode",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "d7660622",
+                  "fields": [
+                    {
+                      "name": "pais",
+                      "expression": "`pais`"
+                    },
+                    {
+                      "name": "countdistinct(bodega)",
+                      "expression": "COUNT(DISTINCT `bodega`)"
+                    }
+                  ],
+                  "disaggregated": false,
+                  "orders": [
+                    {
+                      "direction": "ASC",
+                      "expression": "COUNT(DISTINCT `bodega`)"
+                    }
+                  ]
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "showTitle": true,
+                "title": "Bodegas por país",
+                "headerAlignment": "center"
+              },
+              "mark": {
+                "colors": [
+                  "#D223DC",
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 2
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 3
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 4
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 5
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 6
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 7
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 8
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 9
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 10
+                  }
+                ]
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "pais",
+                  "axis": {
+                    "hideTitle": true,
+                    "hideLabels": true
+                  },
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "measure",
+                      "measure": {
+                        "fieldName": "countdistinct(bodega)"
+                      }
+                    }
+                  }
+                },
+                "y": {
+                  "fieldName": "countdistinct(bodega)",
+                  "axis": {
+                    "hideLabels": true,
+                    "hideGrid": true,
+                    "hideTitle": true
+                  },
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 3,
+            "width": 4,
+            "height": 4
+          }
+        },
+        {
+          "widget": {
+            "name": "top",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "d7660622",
+                  "fields": [
+                    {
+                      "name": "count(*)",
+                      "expression": "COUNT(`*`)"
+                    },
+                    {
+                      "name": "bodega",
+                      "expression": "`bodega`"
+                    }
+                  ],
+                  "disaggregated": false,
+                  "orders": [
+                    {
+                      "direction": "DESC",
+                      "expression": "COUNT(`*`)"
+                    }
+                  ]
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "showTitle": true,
+                "title": "Top 5 Bodegas",
+                "headerAlignment": "center"
+              },
+              "mark": {
+                "colors": [
+                  "#D223DC",
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 2
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 3
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 4
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 5
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 6
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 7
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 8
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 9
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 10
+                  }
+                ]
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "count(*)",
+                  "axis": {
+                    "hideLabels": true,
+                    "hideGrid": true,
+                    "hideTitle": true
+                  },
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "bodega",
+                  "axis": {
+                    "hideTitle": true,
+                    "hideLabels": false,
+                    "labelAngle": 0
+                  },
+                  "scale": {
+                    "type": "categorical",
+                    "categorySize": {
+                      "type": "number-of-categories",
+                      "number": 5
+                    },
+                    "sort": {
+                      "by": "measure-reversed",
+                      "measure": {
+                        "fieldName": "count(*)"
+                      }
+                    }
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 7,
+            "width": 4,
+            "height": 4
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    },
+    "applyModeEnabled": false
+  }
+}

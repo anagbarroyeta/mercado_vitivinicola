@@ -49,6 +49,7 @@ Se detectaron productos con el mismo título dentro de una misma tienda pero con
 
 ---
 
+
 ## Modelo Dimensional
 
 ### Esquema Estrella
@@ -69,8 +70,28 @@ Un producto puede estar asociado a múltiples varietales y un varietal puede est
 
 ---
 
+## Vista Analítica para Consumo BI
+
+Se implementó 'gold.vw_catalogo_varietales' como capa de consumo analítico.
+
+Objetivos:
+
+- abstraer la complejidad del modelo dimensional
+- centralizar los joins entre la tabla de hechos, dimensiones y tabla puente
+- simplificar el consumo desde herramientas analíticas
+- garantizar consistencia en dashboards, KPIs y consultas de negocio
+- desacoplar la capa de visualización del modelo físico
+
+La vista constituye la capa final de consumo sobre Gold y no participa del proceso de carga ni de la orquestación del pipeline.
+
+---
+
 ## Slowly Changing Dimensions (SCD)
 
 ### SCD Type 1
 
 La dimensión de productos utiliza actualizaciones tipo SCD 1 mediante `MERGE`, ya que el negocio requiere únicamente el estado actual de atributos descriptivos como categoría, bodega y título, sin necesidad de conservar historial.
+
+## Orquestación
+
+La ejecución del pipeline fue automatizada mediante Databricks Jobs, definiendo dependencias entre las etapas Bronze, Silver y Gold para garantizar el orden correcto de procesamiento y evitar ejecuciones manuales.
