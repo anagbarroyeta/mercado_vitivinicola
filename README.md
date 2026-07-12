@@ -64,7 +64,7 @@ El dashboard fue desarrollado en Databricks SQL Dashboards y permite responder l
 - ¿Qué varietales predominan en la oferta?
 - ¿Cómo se distribuye el catálogo por categoría?
 
-![Dashboard](viz/Análisis Competitivo del Mercado Vitivinícola.png)
+![Dashboard](viz/dashboard.png)
 
 ## Resultados
 
